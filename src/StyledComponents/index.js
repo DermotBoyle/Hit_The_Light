@@ -42,8 +42,15 @@ export const Wrapper = styled.div`
   row-gap: 6px;
 `;
 
+export const ScoreboardWrapper = styled(Wrapper)`
+  display: block;
+  position: relative;
+  min-height: 0;
+  padding-bottom: 1.5rem;
+`;
+
 export const PlayBox = styled.div`
-  min-height: 2rem;
+  min-height: 0.8rem;
   width: 100%;
   background-color: hsl(
     ${(props) => props.color},
@@ -55,14 +62,15 @@ export const PlayBox = styled.div`
 
 export const ScoreButton = styled.button`
   display: block;
+  bottom: 1rem;
   height: 3em;
+  margin: auto;
   border-radius: 18px;
   width: calc(100% - 6rem);
   oultine: none;
   border: none;
   background-color: #0d83ff;
   color: white;
-  margin: auto;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 1.2px;
@@ -70,8 +78,8 @@ export const ScoreButton = styled.button`
 export const ScoreBoardTitle = styled.h1`
   display: flex;
   justify-content: center;
-  padding: 0 1.5rem;
-
+  padding: 1rem;
+    margin-bottom: 0;
   > img {
     padding: 0 1rem;
   }
@@ -84,28 +92,30 @@ export const Timer = styled.p`
 
 export const NameContainer = styled.div`
  width: calc(100% - 1em);
- padding 16px;
+ padding: 1rem;
+ padding-top: 0;
  display: flex;
  flex-direction: column;
-
- >ul  > label{
-     display: none;
-     padding: 12px 0;
- }
-
- > ul > li{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    p:nth-child(2){
-        padding-right: 2rem;
+ >ul {
+padding-left: 1rem;
+  > label {
+    display: none;
+    padding: 12px 0;
+  }
+  > li{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  p:nth-child(2){
+      padding-right: 2rem;
     }
- }
+  }  
+}
 `;
 
 export const NameInput = styled.input`
   border: 1px solid #e1e1e1;
   height: 2rem;
-  width: calc(100% - 24rem);
-  min-width: 16rem;
+  width: 60%;
+  min-width: 12rem;
 `;

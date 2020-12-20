@@ -20,7 +20,7 @@ function useUpdateScoreboard() {
         isTop10 = scoreboard.length -1;
     } else{
         scoreboard.splice(isTop10, 0, data)
-        scoreboard.length = 10;
+        if(scoreboard.length > 10)scoreboard.length = 10;
     }
     dispatch({type: 'UPDATE_SCOREBOARD', payload: scoreboard});
     dispatch({type: 'UPDATE_USER_POSITION', payload: isTop10})

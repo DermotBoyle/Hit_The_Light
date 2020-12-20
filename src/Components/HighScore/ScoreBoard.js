@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import Context from "../../Store/Context";
 import {
   CelebrateEmoji,
-  Wrapper,
+  ScoreboardWrapper,
   ScoreBoardTitle,
   NameContainer,
   NameInput,
@@ -21,6 +21,7 @@ export default function ScoreBoard() {
   const [userPosition,setUserPosition]  = useState([]);
 
   useEffect(() => {
+    debugger;
     let scoreboardCopy = cloneDeep(state.scoreboard);
     setScoreboard(scoreboardCopy);
     interpretPosition(state.userPosition);
@@ -29,6 +30,7 @@ export default function ScoreBoard() {
  function handleNameSubmit (){
    let updateInfo = scoreboard[userPosition];
    updateInfo.name = name;
+   debugger
    dispatch({type: 'UPDATE_SCOREBOARD', payload: scoreboard})
    history.push('/');
  }
@@ -40,8 +42,8 @@ export default function ScoreBoard() {
  }
 
   return (
-    <Wrapper>
-      {scoreboard.length === 1 && (
+    <ScoreboardWrapper>
+      {scoreboard.length === 1 ? (
         <>
           <ScoreBoardTitle>
             Looks like you're first on the board !{" "}
@@ -51,7 +53,11 @@ export default function ScoreBoard() {
             />
           </ScoreBoardTitle>
         </>
-      )}
+      ) :  <>
+      <ScoreBoardTitle>
+        Top 10 leaderboard
+      </ScoreBoardTitle>
+    </>}
       <NameContainer>
         <ul>
           {scoreboard.length >= 1 &&
@@ -64,14 +70,16 @@ export default function ScoreBoard() {
                   <p>{user.score} </p>
                 </li>
               ) : (
+                <li>
                <p>{index+1}. <NameInput
                   type="text"
                   onChange={(e) => setName(e.target.value)}
                   value={name}
                   placeholder="Enter you name here"
                 />
-                {user.score}
-                </p> 
+                </p>
+                <p>{user.score}</p>
+                </li>
               )
             )}
           <label>Write your name</label>
@@ -85,6 +93,6 @@ export default function ScoreBoard() {
       ) : (
         <ScoreButton onClick={() => history.push("/")}> Play again</ScoreButton>
       )}
-    </Wrapper>
+    </ScoreboardWrapper>
   );
 }
