@@ -45,9 +45,6 @@ function App() {
                   <Link className="nav_item" to={HOME}>Home</Link>
                 </li>
                 <li>
-                  <Link className="nav_item" to={ABOUT}>About</Link>
-                </li>
-                <li>
                   <Link className="nav_item" to={`${SCOREBOARD}/_`}>Scoreboard</Link>
                 </li>
                 <button onClick={() => setIsOpen(!isOpen)}><img alt="menu button" src="/assets/burger__icon.svg" /></button>
