@@ -33,17 +33,17 @@ export const NavItems = styled.ul`
 export const Wrapper = styled.div`
   margin: auto;
   display: grid;
-  max-width: calc(100% - 25em);
+  max-width: calc(100% - 25rem);
+  min-height: 70vh;
   grid-template-columns: repeat(${(props) => props.templateSize}, 1fr);
-  grid-template-rows: auto;
+  grid-template-rows: repeat(${(props) => props.templateSize}, 1fr);
   background-color: #bfbfbf;
   column-gap: 6px;
   row-gap: 6px;
-  padding-bottom: 2rem;
 `;
 
 export const PlayBox = styled.div`
-  height: 8em;
+  min-height: 2rem;
   width: 100%;
   background-color: hsl(
     ${(props) => props.color},

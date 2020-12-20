@@ -12,7 +12,6 @@ function useUpdateScoreboard() {
 
     let res = Array.from(scoreboard, (user) => user.score);
     let isTop10 = res.findIndex((topResult) => topResult < score);
-    debugger;
 
     if(isTop10 === -1 && scoreboard.length >= 10) return dispatch({type: 'UPDATE_USER_POSITION', payload: false});
     
@@ -23,7 +22,6 @@ function useUpdateScoreboard() {
         scoreboard.splice(isTop10, 0, data)
         scoreboard.length = 10;
     }
-    debugger;
     dispatch({type: 'UPDATE_SCOREBOARD', payload: scoreboard});
     dispatch({type: 'UPDATE_USER_POSITION', payload: isTop10})
     }
