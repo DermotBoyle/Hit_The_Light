@@ -12,7 +12,7 @@ import {
   ScoreButton,
 } from "../../StyledComponents";
 
-export default function ScoreBoard() {
+export default function ScoreBoard({match}) {
   const { state, dispatch } = useContext(Context);
   const history = useHistory();
 
@@ -21,22 +21,22 @@ export default function ScoreBoard() {
   const [userPosition,setUserPosition]  = useState([]);
 
   useEffect(() => {
-    debugger;
     let scoreboardCopy = cloneDeep(state.scoreboard);
     setScoreboard(scoreboardCopy);
+
+    if(match.params.score === '_')return interpretPosition(null);
+    debugger;
     interpretPosition(state.userPosition);
   }, []);
 
  function handleNameSubmit (){
    let updateInfo = scoreboard[userPosition];
    updateInfo.name = name;
-   debugger
    dispatch({type: 'UPDATE_SCOREBOARD', payload: scoreboard})
    history.push('/');
  }
 
  function interpretPosition(position){
-     debugger;
     if(position === false) return setUserPosition(false);
     return setUserPosition(position);
  }
@@ -85,7 +85,7 @@ export default function ScoreBoard() {
           <label>Write your name</label>
         </ul>
       </NameContainer>
-      {userPosition !== false ? (
+      {userPosition !== false && match.params.score !== '_' ? (
         <ScoreButton onClick={() => handleNameSubmit()}>
           {" "}
           Submit score

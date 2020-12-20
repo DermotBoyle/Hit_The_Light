@@ -1,12 +1,14 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Header } from "./StyledComponents/index";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import GameWrapper from "./Components/Game/GameWrapper/index";
 import ScoreBoard from "./Components/HighScore/ScoreBoard";
-import { SCOREBOARD } from "./CONSTANTS";
+import MobileMenu from "./Components/MobileMenu/index";
+
+import { ABOUT, HOME, SCOREBOARD } from "./CONSTANTS";
 
 import Context from "./Store/Context";
 import Reducer from "./Store/Reducers";
@@ -16,14 +18,14 @@ import { BrandLogo, NavItems } from "./StyledComponents/index";
 import "./App.scss";
 
 function App() {
-  
   const history = useHistory();
 
   const initialState = useContext(Context);
   const [state, dispatch] = useReducer(Reducer, initialState);
+  const [isOpen, setIsOpen] = useState(false);
 
-  function goTo(url){
-    history.push(url)
+  function goTo(url) {
+    history.push(url);
   }
 
   return (
@@ -35,13 +37,22 @@ function App() {
               className="adidas_logo"
               alt="Adidas brand logo"
               src="/assets/adidas.svg"
-              onClick={() => goTo('/')}
+              onClick={() => goTo("/")}
             />
             <nav>
               <NavItems>
-                <li onClick={() => goTo("/")}>Home</li>
-                <li onClick={() => goTo("/about")}>About</li>
+                <li>
+                  <Link to={HOME}>Home</Link>
+                </li>
+                <li>
+                  <Link to={ABOUT}>About</Link>
+                </li>
+                <li>
+                  <Link to={`${SCOREBOARD}/_`}>Scoreboard</Link>
+                </li>
+                <button onClick={() => setIsOpen(!isOpen)}><img alt="menu button" src="/assets/burger__icon.svg" /></button>
               </NavItems>
+              <MobileMenu modalIsOpen={isOpen} closeModal={setIsOpen} />
             </nav>
           </Header>
           <Switch>

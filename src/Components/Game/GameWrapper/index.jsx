@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import EndGamePortal from "../../EndGame/index";
-import { Wrapper, PlayBox, Timer } from "../../../StyledComponents/index";
+import StartGamePortal from "../SupportingComponents/StartGamePortal";
+import { Wrapper, PlayBox, Timer, Level, GameDetails } from "../../../StyledComponents/index";
 import useColorGenerator from "./hooks/useColorGenerator";
 
-const initalSeconds = 34;
+const initalSeconds = 38;
 
-export default function GameWrapper() {
+export default function GameWrapper({HeaderRef}) {
   const { getRandomColor, getRandomPlayBox } = useColorGenerator();
 
   const [level, setLevel] = useState(4);
   const [randomColor, setRandomColor] = useState("");
   const [chosenPlaybox, setChosenPlayBox] = useState(1);
+
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [sgModalIsOpen, setSgIsOpen] = useState(true);
 
   const [seconds, setSeconds] = useState(initalSeconds);
   const [score, setScore] = useState(0);
@@ -21,23 +24,23 @@ export default function GameWrapper() {
     let num = getRandomPlayBox(0, level);
     setChosenPlayBox(num);
     setRandomColor(color);
-    setSeconds(initalSeconds - level);
-
+    setSeconds(initalSeconds - level * 2);
   }, [level]);
 
   useEffect(() => {
-    let timer = setInterval(() => {
-      if (seconds === 0) {
-        setIsOpen(true);
+    if(!sgModalIsOpen){
+      let timer = setInterval(() => {
+        if (seconds <= 0) {
+          setIsOpen(true);
+          clearInterval(timer);
+        } else {
+          setSeconds(seconds - 1);
+        }
+      }, 1000);
+      return () => {
         clearInterval(timer);
-      } else {
-        setSeconds(seconds - 1);
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(timer);
-    };
+      };
+    } 
   });
 
   function handleProgress(index) {
@@ -53,9 +56,16 @@ export default function GameWrapper() {
     setIsOpen(false);
   }
 
+  function sgCloseModal(){
+    setSgIsOpen(false);
+  }
+
   return (
     <>
-     <Timer> Time : {seconds}</Timer>
+    <GameDetails>
+     <Timer>{modalIsOpen ? 'Time : 0' :`Time : ${seconds}`}</Timer>
+     <Level>lvl: {level - 3}</Level>
+     </GameDetails>
       <Wrapper templateSize={level}>
         {Array(level * level)
           .fill("box")
@@ -70,7 +80,8 @@ export default function GameWrapper() {
             );
           })}
       </Wrapper>
-      <EndGamePortal closeModal={closeModal} modalIsOpen={modalIsOpen} score={score} />
+      <EndGamePortal closeModal={closeModal} modalIsOpen={modalIsOpen} score={score} seconds={seconds} />
+      <StartGamePortal closeModal={sgCloseModal} modalIsOpen={sgModalIsOpen} />
     </>
   );
 }

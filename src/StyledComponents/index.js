@@ -3,14 +3,15 @@ import styled from "styled-components";
 export const Header = styled.header`
   display: flex;
   width: 100%;
-  height: fit-content;
+  height: 5rem;
   background-color: #1a1a1a;
   justify-content: space-between;
   align-items: center;
 `;
 
 export const BrandLogo = styled.img`
-  width: 100px;
+  width: 15vw;
+  max-width: 5rem;
   margin-left: 5%;
 `;
 
@@ -24,11 +25,40 @@ export const NavItems = styled.ul`
   color: white;
   padding: 0 16px;
   > li {
-    color: white;
     list-style-type: none;
-    padding: 0 18px;
+    padding: 0 2vw;
+    @media (max-width: 450px) {
+      display: none;
+    }
+    > a {
+      color: white;
+      text-decoration: none;
+    }
+  }
+
+  >button{
+    background-color: #1a1a1a;
+    border: none;
+    outline: none;
+    @media (min-width: 450px) {
+      display: none;
+    }
+    >img{
+      width: 2rem;
+    }
   }
 `;
+
+export const MenuLinkList = styled.ul`
+padding-left: 2vw;
+> li {
+  list-style-type: none;
+  padding: 4vw 2vw;
+  > a {
+    color: white;
+    text-decoration: none;
+  }
+`
 
 export const Wrapper = styled.div`
   margin: auto;
@@ -40,6 +70,14 @@ export const Wrapper = styled.div`
   background-color: #bfbfbf;
   column-gap: 6px;
   row-gap: 6px;
+
+  @media (max-width: 795px) {
+    max-width: calc(100% - 5rem);
+  }
+
+  @media (max-width: 390px) {
+    max-width: calc(100% - 1rem);
+  }
 `;
 
 export const ScoreboardWrapper = styled(Wrapper)`
@@ -67,6 +105,7 @@ export const ScoreButton = styled.button`
   margin: auto;
   border-radius: 18px;
   width: calc(100% - 6rem);
+  min-width: 8rem;
   oultine: none;
   border: none;
   background-color: #0d83ff;
@@ -82,13 +121,33 @@ export const ScoreBoardTitle = styled.h1`
     margin-bottom: 0;
   > img {
     padding: 0 1rem;
+    @media (max-width: 390px) {
+      padding:0 1rem;
+      width:2rem;
+    }
+  }
+
+  @media (max-width: 390px) {
+    font-size: 14px
   }
 `;
+
+export const GameDetails = styled.div`
+display: flex;
+justify-content: space-between;
+`
 
 export const Timer = styled.p`
   font-size: 24px;
   padding: 0 4.5rem;
+  @media (max-width: 390px) {
+    margin: 1rem;
+    padding: .5rem
+  }
 `;
+
+export const Level = styled(Timer)`
+`
 
 export const NameContainer = styled.div`
  width: calc(100% - 1em);
@@ -118,4 +177,8 @@ export const NameInput = styled.input`
   height: 2rem;
   width: 60%;
   min-width: 12rem;
+
+  @media (max-width: 390px) {
+    min-width: 10rem;
+  }
 `;
