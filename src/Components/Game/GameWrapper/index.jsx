@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import EndGamePortal from "../../EndGame/index";
-import { Wrapper, PlayBox } from "../../../StyledComponents/index";
+import { Wrapper, PlayBox, Timer } from "../../../StyledComponents/index";
 import useColorGenerator from "./hooks/useColorGenerator";
 
 const initalSeconds = 34;
@@ -55,7 +55,7 @@ export default function GameWrapper() {
 
   return (
     <>
-     <p>{seconds}</p>
+     <Timer> Time : {seconds}</Timer>
       <Wrapper templateSize={level}>
         {Array(level * level)
           .fill("box")

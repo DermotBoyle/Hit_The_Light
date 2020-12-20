@@ -2,7 +2,9 @@ import  {createContext} from 'react';
 
 
 const Context = createContext({
-    scoreboard: []
+    scoreboard: [],
+    currentUser: 0,
+    userPosition: 0,
 })
 
 

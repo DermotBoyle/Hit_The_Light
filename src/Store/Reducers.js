@@ -6,6 +6,18 @@ export default function reducer(state, { type, payload }) {
         scoreboard: payload,
       };
 
+      case "UPDATE_CURRENT_USER_SCORE":
+        return {
+          ...state,
+          currentUser: payload,
+        };
+
+        case "UPDATE_USER_POSITION":
+          return {
+            ...state,
+            userPosition: payload,
+          }
+
     default:
       return state;
   }

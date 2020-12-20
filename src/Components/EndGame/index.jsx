@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import Modal from "react-modal";
 import { useHistory } from "react-router-dom";
-
+import useUpdateScoreboard from "../EndGame/hooks/useUpdateScoreBoard";
 import { ScoreButton } from "../../StyledComponents/index";
 
 import { SCOREBOARD } from "../../CONSTANTS";
+import Context from "../../Store/Context";
+
+import {cloneDeep} from 'lodash';
 
 const customStyles = {
   content: {
@@ -21,10 +24,15 @@ Modal.setAppElement("#root");
 
 export default function EndGamePortal({ modalIsOpen, closeModal, score }) {
   const history = useHistory();
+  const {state} = useContext(Context);
+  const {addUserToBoard} = useUpdateScoreboard();
 
   function handleClick() {
+    
+    let scoreboard = cloneDeep(state.scoreboard);
+    addUserToBoard(score, scoreboard);
     closeModal();
-    history.push(SCOREBOARD);
+    history.push(`${SCOREBOARD}/${score}`);
   }
 
 
@@ -33,7 +41,7 @@ export default function EndGamePortal({ modalIsOpen, closeModal, score }) {
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
       style={customStyles}
-      contentLabel="Example Modal"
+      contentLabel="End of game modal"
     >
       <h1>Oooops! Looks like that was incorrect</h1>
       <h5>Your Score : {score}</h5>
