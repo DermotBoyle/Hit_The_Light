@@ -42,13 +42,13 @@ function App() {
             <nav>
               <NavItems>
                 <li>
-                  <Link to={HOME}>Home</Link>
+                  <Link className="nav_item" to={HOME}>Home</Link>
                 </li>
                 <li>
-                  <Link to={ABOUT}>About</Link>
+                  <Link className="nav_item" to={ABOUT}>About</Link>
                 </li>
                 <li>
-                  <Link to={`${SCOREBOARD}/_`}>Scoreboard</Link>
+                  <Link className="nav_item" to={`${SCOREBOARD}/_`}>Scoreboard</Link>
                 </li>
                 <button onClick={() => setIsOpen(!isOpen)}><img alt="menu button" src="/assets/burger__icon.svg" /></button>
               </NavItems>

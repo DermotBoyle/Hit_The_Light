@@ -20,7 +20,7 @@ const customStyles = {
   },
 };
 
-Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement("#root");
 
 export default function EndGamePortal({
   modalIsOpen,

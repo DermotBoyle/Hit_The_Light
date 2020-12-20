@@ -1,8 +1,13 @@
-import { render, screen } from '@testing-library/react';
 import App from './App';
+import {shallow} from 'enzyme';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+
+import {NavItems} from "./StyledComponents/index"
+
+describe('Component : NavItems', () => {
+    test("Nav Item Home exists", ()=> {
+      const wrapper= shallow(<App />);
+      expect(wrapper.find(NavItems).children()).toHaveLength(4);
+    })
+})
+

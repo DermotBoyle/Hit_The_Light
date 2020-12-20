@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import EndGamePortal from "../../EndGame/index";
 import StartGamePortal from "../SupportingComponents/StartGamePortal";
-import { Wrapper, PlayBox, Timer, Level, GameDetails } from "../../../StyledComponents/index";
+import {
+  Wrapper,
+  PlayBox,
+  Timer,
+  Level,
+  GameDetails,
+} from "../../../StyledComponents/index";
 import useColorGenerator from "./hooks/useColorGenerator";
 
 const initalSeconds = 38;
 
-export default function GameWrapper({HeaderRef}) {
+export default function GameWrapper() {
   const { getRandomColor, getRandomPlayBox } = useColorGenerator();
 
   const [level, setLevel] = useState(4);
@@ -28,7 +34,7 @@ export default function GameWrapper({HeaderRef}) {
   }, [level]);
 
   useEffect(() => {
-    if(!sgModalIsOpen){
+    if (!sgModalIsOpen) {
       let timer = setInterval(() => {
         if (seconds <= 0) {
           setIsOpen(true);
@@ -40,12 +46,12 @@ export default function GameWrapper({HeaderRef}) {
       return () => {
         clearInterval(timer);
       };
-    } 
+    }
   });
 
   function handleProgress(index) {
     if (index === chosenPlaybox) {
-      setScore( score + seconds * level)
+      setScore(score + seconds * level);
       setLevel(level + 1);
     } else {
       setIsOpen(true);
@@ -56,22 +62,23 @@ export default function GameWrapper({HeaderRef}) {
     setIsOpen(false);
   }
 
-  function sgCloseModal(){
+  function sgCloseModal() {
     setSgIsOpen(false);
   }
 
   return (
     <>
-    <GameDetails>
-     <Timer>{modalIsOpen ? 'Time : 0' :`Time : ${seconds}`}</Timer>
-     <Level>lvl: {level - 3}</Level>
-     </GameDetails>
+      <GameDetails>
+        <Timer>{modalIsOpen ? "Time : 0" : `Time : ${seconds}`}</Timer>
+        <Level className="level">lvl: {level - 3}</Level>
+      </GameDetails>
       <Wrapper templateSize={level}>
         {Array(level * level)
           .fill("box")
           .map((_, index) => {
             return (
               <PlayBox
+                className="playbox"
                 key={index}
                 color={randomColor}
                 saturate={index === chosenPlaybox ? "100%" : "50%"}
@@ -80,7 +87,12 @@ export default function GameWrapper({HeaderRef}) {
             );
           })}
       </Wrapper>
-      <EndGamePortal closeModal={closeModal} modalIsOpen={modalIsOpen} score={score} seconds={seconds} />
+      <EndGamePortal
+        closeModal={closeModal}
+        modalIsOpen={modalIsOpen}
+        score={score}
+        seconds={seconds}
+      />
       <StartGamePortal closeModal={sgCloseModal} modalIsOpen={sgModalIsOpen} />
     </>
   );
